@@ -4,8 +4,16 @@ import tensorflow as tf
 from sklearn.preprocessing import StandardScaler, LabelEncoder, OneHotEncoder
 import pandas as pd
 import pickle
+import tensorflow as tf
 
-model = tf.keras.models.load_model('model.h5')
+model = tf.keras.models.load_model("model.h5", compile=False)
+
+model.compile(
+    optimizer=tf.keras.optimizers.Adam(),
+    loss=tf.keras.losses.BinaryCrossentropy(from_logits=False),
+    metrics=["accuracy"]
+)
+
 
 with open('label_encoder_gender','rb') as file:
     label_encoder=pickle.load(file)
